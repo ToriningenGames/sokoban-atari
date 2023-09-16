@@ -18,6 +18,7 @@ Start:
   TXS
   PHA
   BNE -
+  CLD
 ;Initialize the various video registers
   LDA #$05
   STA NUSIZ0
@@ -46,6 +47,12 @@ Start:
   STA GraphPos
   LDA #>GraphicPlayerHide
   STA GraphPos+1
+  LDA #>PosPlayer
+  STA PlayerPosCode+1
+  LDA #$03
+  STA PlayerY
+  LDA #$01
+  STA PlayerX
   LDX #ColorWall
   LDY #ColorGoal
   JMP EndOfScreen

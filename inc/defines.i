@@ -1,11 +1,15 @@
 ;Univeral Defines
 
 .DEFINE DrawRoutine     $80
-.DEFINE HRoutine        DrawRoutine     +<HBlank
-.DEFINE ActiveLevel     HRoutine        +<StartNewLine-<HBlank
+.DEFINE ActiveLevel     DrawRoutine     +<HBlank
 .DEFINE LineCounter     ActiveLevel     +$40
 .DEFINE LevelIndex      LineCounter     +$01
 .DEFINE GraphPos        LevelIndex      +$01
+.DEFINE PlayerX         GraphPos        +$02
+.DEFINE PlayerY         PlayerX         +$01
+.DEFINE PlayerPosCode   PlayerY         +$01
+
+.DEFINE DummyWrite      $2C
 
 ;Storage opcodes are $84, $85, $86, and $87. These correspond to Y, A, X, and AX, respectively.
 ;Therefore, A and X have to be chosen such that A&X is dark and matches the background

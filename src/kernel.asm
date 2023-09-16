@@ -49,8 +49,7 @@ RamDrawRoutine:
   STA COLUPF       ;Box
   NOP
   STY COLUPF       ;Goal
-  STY COLUPF       ;Goal
-  NOP
+  JMP HBlank
 
 ;During horizontal blank, we need to figure out the following:
         ;Which row of player graphics to draw
@@ -66,9 +65,8 @@ HBlank:
   LDA #ColorBox              ;2  24
   DEC GraphPos               ;5  29
 ;End of drawing this level row?
-.db $10 $FF-<CADDR  ;BPL     ;3  32
-.db  $87 COLUPF    ;Nothing
-  JMP EndOfRow
+  BMI EndOfRow               ;2  31
+  JMP DrawRoutine
 
 ;Jump into the kernel exactly when the beam is right
 StartNewLine:
@@ -77,22 +75,31 @@ StartNewLine:
 -
   DEX
   BNE -
-  NOP
   LDX #ColorWall
   LDY #ColorGoal
-  JMP HRoutine
+  JMP HBlank
 
+.db  $87 COLUPF    ;Nothing
 EndOfRow:
 ;Level row ended
 ;Thankfully, we have a few blank lines to load in valuable data with
-  LDA #<GraphicPlayerHide
-  STA GraphPos
   ;End of screen?
   DEC LineCounter
   BEQ EndOfScreen
-  ;Level data
   ;Player data
     ;If player is this row, turn on graphics
+  LDA PlayerY
+  CMP LineCounter
+  BEQ +
+  LDA #>GraphicPlayerHide
+  BNE ++
++
+  LDA #>GraphicPlayerShow
+++
+  STA GraphPos+1
+  LDA #<GraphicPlayerHide
+  STA GraphPos
+  ;Level data
   
 ;Return to drawing next level row
   JMP StartNewLine
@@ -132,10 +139,11 @@ EndOfScreen:
   STA WSYNC
   STA WSYNC
   STA WSYNC
+  STA WSYNC
   LDA #$02
   STA VBLANK
   STA VSYNC
-  LDA #$08
+  LDA #$09
   STA LineCounter
   LDA #$00
   STA WSYNC
@@ -189,6 +197,42 @@ EndOfScreen:
   STA WSYNC
   STA WSYNC
   STA WSYNC
+  ;Position the player on screen
+  LDA PlayerX           ;3
+  STA PlayerPosCode     ;3
+  ASL PlayerPosCode     ;5
+  JMP (PlayerPosCode)   ;5
+
+.SECTION "Player Position" ALIGN $100 FREE
+;Delay function for player positioning
+PosPlayer:
+  BPL PlayerPos0
+  BPL PlayerPos1
+  BPL PlayerPos2
+  BPL PlayerPos3
+  BPL PlayerPos4
+  BPL PlayerPos5
+  BPL PlayerPos6
+  BPL PlayerPos7
+PlayerPos7:     ;5
+  INC DummyWrite
+PlayerPos6:     ;6
+  CMP (DummyWrite,X)
+PlayerPos5:     ;5
+  INC DummyWrite
+PlayerPos4:     ;5
+  INC DummyWrite
+PlayerPos3:     ;5
+  INC DummyWrite
+PlayerPos2:     ;6
+  CMP (DummyWrite,X)
+PlayerPos1:     ;5
+  INC DummyWrite
+PlayerPos0:     ;4
+  NOP
+  NOP
+  STA RESP0
   STA WSYNC
-  STA WSYNC
-  JMP StartNewLine
+  JMP EndOfRow
+
+.ENDS
