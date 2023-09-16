@@ -25,7 +25,7 @@ TBD
 
 TODO: Talk about actual game code here
 Two tools are provided: pack and unpack. pack takes a standard sokoban level description with a play area no greater than 8x8 from standard input, and outputs a 17 byte compact level to standard output. unpack does the reverse: it reads a packed level from standard input and outputs a sokoban level description to standard output. <br/>
-These tools are used to take the levels in `levels` and fit them on the 2048-byte cart that is an Atari game.
+These tools are used to take the levels in `levels` and fit them on the 4096-byte cart that is an Atari game.
 
 ## Credits
 

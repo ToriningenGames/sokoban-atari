@@ -1,9 +1,9 @@
 
-OBJSRC := main.asm
-LIBSRC := 
+OBJSRC := init.asm kernel.asm
+LIBSRC := logic.asm graphics.asm
 
-bin/sokoban.rom : $(addprefix obj/,$(OBJSRC:.asm=.obj)) $(addprefix lib/,$(LIBSRC:.asm=.lib)) link.link | bin
-	wlalink -S -A -L lib link.link $@
+bin/sokoban.a26 : $(addprefix obj/,$(OBJSRC:.asm=.obj)) $(addprefix lib/,$(LIBSRC:.asm=.lib)) link.link | bin
+	wlalink -s -A -L lib link.link $@
 
 clean :
 	$(RM) -r dep obj lib bin link.link
@@ -22,7 +22,7 @@ link.link : $(addprefix src/,$(OBJSRC) $(LIBSRC))
 
 obj/%.obj : src/%.asm dep/%.d | src dep obj
 	wla-6502 -M -I inc -I src -o $@ $< > $(word 2,$^)
-lib/%.l : src/%.asm dep/%.d | src dep lib
+lib/%.lib : src/%.asm dep/%.d | src dep lib
 	wla-6502 -M -I inc -I src -l $@ $< > $(word 2,$^)
 
 bin/pack : src/converter/pack.c | bin
