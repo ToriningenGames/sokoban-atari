@@ -8,6 +8,8 @@
 .DEFINE PlayerX         GraphPos        +$02
 .DEFINE PlayerY         PlayerX         +$01
 .DEFINE PlayerPosCode   PlayerY         +$01
+.DEFINE Buttons         PlayerPosCode   +$02
+.DEFINE ButtonsChange   Buttons         +$01
 
 .DEFINE DummyWrite      $2C
 

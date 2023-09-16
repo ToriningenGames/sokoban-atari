@@ -85,7 +85,7 @@ EndOfRow:
 ;Thankfully, we have a few blank lines to load in valuable data with
   ;End of screen?
   DEC LineCounter
-  BEQ EndOfScreen
+  BMI EndOfScreen
   ;Player data
     ;If player is this row, turn on graphics
   LDA PlayerY
@@ -143,7 +143,7 @@ EndOfScreen:
   LDA #$02
   STA VBLANK
   STA VSYNC
-  LDA #$09
+  LDA #$08
   STA LineCounter
   LDA #$00
   STA WSYNC
@@ -195,7 +195,15 @@ EndOfScreen:
   STA WSYNC
   STA WSYNC
   STA WSYNC
+  ;Read input
+  LDA SWCHA
+  EOR Buttons
+  AND Buttons
+  STA ButtonsChange
+  LDA SWCHA
+  STA Buttons
   STA WSYNC
+  JSR MovePlayer
   STA WSYNC
   ;Position the player on screen
   LDA PlayerX           ;3
