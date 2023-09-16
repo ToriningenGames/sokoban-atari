@@ -1,6 +1,6 @@
 
 OBJSRC := init.asm kernel.asm
-LIBSRC := logic.asm graphics.asm
+LIBSRC := logic.asm graphics.asm levels.asm
 
 bin/sokoban.a26 : $(addprefix obj/,$(OBJSRC:.asm=.obj)) $(addprefix lib/,$(LIBSRC:.asm=.lib)) link.link | bin
 	wlalink -s -A -L lib link.link $@

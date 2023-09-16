@@ -43,17 +43,10 @@ Start:
   DEX
   BPL -
 ;Initialize the various important RAM registers
-  LDA #<GraphicPlayerHide
-  STA GraphPos
-  LDA #>GraphicPlayerHide
-  STA GraphPos+1
+  LDA #$01
+  STA LevelIndex
   LDA #>PosPlayer
   STA PlayerPosCode+1
-  LDA #$03
-  STA PlayerY
-  LDA #$01
-  STA PlayerX
-  LDX #ColorWall
-  LDY #ColorGoal
+  JSR LoadLevel
   JMP EndOfScreen
  

@@ -35,19 +35,19 @@
 RamDrawRoutine:
 ;Example
   STX COLUPF       ;Wall
-  STX COLUPF       ;Wall
+  STA DummyWrite
 .db  $87 COLUPF    ;Nothing
-.db  $87 COLUPF    ;Nothing
+  STA DummyWrite
   STA COLUPF       ;Box
-  NOP
+  AND #$FF
   STY COLUPF       ;Goal
-  NOP
+  AND #$FF
   STX COLUPF       ;Wall
-  NOP
+  AND #$FF
 .db  $87 COLUPF    ;Nothing
-.db  $87 COLUPF    ;Nothing
+  STA DummyWrite
   STA COLUPF       ;Box
-  NOP
+  AND #$FF
   STY COLUPF       ;Goal
   JMP HBlank
 
@@ -79,7 +79,6 @@ StartNewLine:
   LDY #ColorGoal
   JMP HBlank
 
-.db  $87 COLUPF    ;Nothing
 EndOfRow:
 ;Level row ended
 ;Thankfully, we have a few blank lines to load in valuable data with
@@ -100,12 +99,26 @@ EndOfRow:
   LDA #<GraphicPlayerHide
   STA GraphPos
   ;Level data
-  
+  LDA LineCounter
+  ASL A
+  ASL A
+  ASL A
+  TAX
+  LDY #(ActiveLevel-5)-DrawRoutine
+-
+  LDA ActiveLevel+7,X
+  STA DrawRoutine,Y
+  DEX
+  DEY
+  DEY
+  DEY
+  DEY
+  BPL -
 ;Return to drawing next level row
   JMP StartNewLine
 EndOfScreen:
-;Count 2260-2736 cycles
-  LDA #$2A
+;Count 2128-2204 cycles (29 lines)
+  LDA #34
   STA TIM64T.w
 -
   LDA INTIM.w
@@ -121,8 +134,8 @@ EndOfScreen:
   STA WSYNC
   STA WSYNC
   STA VSYNC
-  ;Count 2736-2812 cycles
-  LDA #$1A
+  ;Count 1292-1368 cycles (18 lines)
+  LDA #22
   STA TIM64T.w
 -
   LDA INTIM.w
@@ -131,7 +144,7 @@ EndOfScreen:
   STA WSYNC
   STA VBLANK
   ;Count 1596-1672 cycles
-  LDA #$1A
+  LDA #$0B
   STA TIM64T.w
   ;Read input
   LDA SWCHA
