@@ -1,7 +1,7 @@
 ;Univeral Defines
 
 .DEFINE DrawRoutine     $80
-.DEFINE ActiveLevel     DrawRoutine     +<HBlank
+.DEFINE ActiveLevel     DrawRoutine     +<(HBlank-RamDrawRoutine)
 .DEFINE LineCounter     ActiveLevel     +$40
 .DEFINE LevelIndex      LineCounter     +$01
 .DEFINE GraphPos        LevelIndex      +$01
@@ -11,6 +11,7 @@
 .DEFINE PlayerPosCode   PlayerY         +$01
 .DEFINE Buttons         PlayerPosCode   +$02
 .DEFINE ButtonsChange   Buttons         +$01
+.DEFINE LevelTimer      ButtonsChange   +$01
 
 .DEFINE DummyWrite      $2C
 

@@ -35,7 +35,7 @@ Start:
   STA PF0
   STA PF1
   STA PF2
-;DEBUG: Initialize the RAM Draw routine
+;Initialize the RAM Draw routine
   LDX #ActiveLevel-DrawRoutine
 -
   LDA RamDrawRoutine.w,X
@@ -43,7 +43,7 @@ Start:
   DEX
   BPL -
 ;Initialize the various important RAM registers
-  LDA #$01
+  LDA #$00
   STA LevelIndex
   LDA #>PosPlayer
   STA PlayerPosCode+1

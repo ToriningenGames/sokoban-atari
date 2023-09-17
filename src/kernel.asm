@@ -30,25 +30,24 @@
 ;Storage opcodes are $84, $85, $86, and $87. These correspond to Y, A, X, and AX, respectively.
 ;Therefore, A and X have to be chosen such that A&X is dark and matches the background
 
+.SECTION "Kernel" FREE
 
-.ORG $800
 RamDrawRoutine:
-;Example
-  STX COLUPF       ;Wall
+  STA COLUPF
   STA DummyWrite
-.db  $87 COLUPF    ;Nothing
+  STA COLUPF
   STA DummyWrite
-  STA COLUPF       ;Box
+  STA COLUPF
   AND #$FF
-  STY COLUPF       ;Goal
+  STA COLUPF
   AND #$FF
-  STX COLUPF       ;Wall
+  STA COLUPF
   AND #$FF
-.db  $87 COLUPF    ;Nothing
+  STA COLUPF
   STA DummyWrite
-  STA COLUPF       ;Box
+  STA COLUPF
   AND #$FF
-  STY COLUPF       ;Goal
+  STA COLUPF
   JMP HBlank
 
 ;During horizontal blank, we need to figure out the following:
@@ -120,6 +119,34 @@ EndOfScreen:
 ;Count 2128-2204 cycles (29 lines)
   LDA #34
   STA TIM64T.w
+  ;Check for win
+  JSR CheckWin
+  BNE +
+  ;Win; check for timer
+  INC LevelTimer
+  BNE ++
+  ;Just won; reset timer
+  LDA #$60
+  STA LevelTimer
+++
+  DEC LevelTimer
+  DEC LevelTimer
+  BNE ++
+  ;Timer hit zero; load level
+  INC LevelIndex
+  JSR LoadLevel
+++
+  BPL ++  ;Skip movement
++
+  ;Read input
+  LDA SWCHA
+  EOR Buttons
+  AND Buttons
+  STA ButtonsChange
+  LDA SWCHA
+  STA Buttons
+  JSR MovePlayer
+++
 -
   LDA INTIM.w
   BPL -
@@ -146,14 +173,6 @@ EndOfScreen:
   ;Count 1596-1672 cycles
   LDA #$0B
   STA TIM64T.w
-  ;Read input
-  LDA SWCHA
-  EOR Buttons
-  AND Buttons
-  STA ButtonsChange
-  LDA SWCHA
-  STA Buttons
-  JSR MovePlayer
 -
   LDA INTIM.w
   BPL -
@@ -163,6 +182,8 @@ EndOfScreen:
   STA PlayerPosCode     ;3
   ASL PlayerPosCode     ;5
   JMP (PlayerPosCode)   ;5
+
+.ENDS
 
 .SECTION "Player Position" ALIGN $100 FREE
 ;Delay function for player positioning

@@ -79,6 +79,82 @@ TileConv:
 TileConvTable:
 .db $87,$85,$84,$86
 
+MovePlayerRight:
+  LDA PlayerX
+  ADC #$00
+  TAX
+  LDA PlayerY
+  ASL A
+  ASL A
+  ASL A
+  ADC PlayerX
+  TAY
+  INY
+  LDA ActiveLevel,Y
+  CMP #$86
+  BEQ + ;Wall?
+  CMP #$85
+  BNE ++ ;Box?
+  ;The tile beyond must accept a box
+  LDA ActiveLevel+1,Y
+  CMP #$86
+  BEQ + ;Wall?
+  CMP #$85
+  BEQ + ;Box?
+  CMP #$84
+  BEQ +++ ;Goal?
+  ;'Tis a ground
+  LDA #$85
+  BMI ++++
++++
+  ;'Tis a goal
+  LDA #$86
+++++
+  STA ActiveLevel+1,Y
+  ;Remove the box from the target tile
+  LDA #$87
+  STA ActiveLevel,Y
+++
+  STX PlayerX
++
+  RTS
+MovePlayerUp:
+  LDA PlayerY
+  ADC #$00
+  TAX
+  ASL A
+  ASL A
+  ASL A
+  ADC PlayerX
+  TAY
+  LDA ActiveLevel,Y
+  CMP #$86
+  BEQ + ;Wall?
+  CMP #$85
+  BNE ++ ;Box?
+  ;The tile beyond must accept a box
+  LDA ActiveLevel+8,Y
+  CMP #$86
+  BEQ + ;Wall?
+  CMP #$85
+  BEQ + ;Box?
+  CMP #$84
+  BEQ +++ ;Goal?
+  ;'Tis a ground
+  LDA #$85
+  BMI ++++
++++
+  ;'Tis a goal
+  LDA #$86
+++++
+  STA ActiveLevel+8,Y
+  ;Remove the box from the target tile
+  LDA #$87
+  STA ActiveLevel,Y
+++
+  STX PlayerY
++
+  RTS
 MovePlayer:
   LDA ButtonsChange
   ROL
@@ -91,38 +167,96 @@ MovePlayer:
   BCS MovePlayerUp
 ;Player did not move
   RTS
-MovePlayerRight:
-  LDA PlayerX
-  ADC #$00
-  AND #$07
-  STA PlayerX
-  RTS
-MovePlayerUp:
-  LDA PlayerY
-  ADC #$00
-  AND #$07
-  STA PlayerY
-  RTS
 MovePlayerLeft:
   LDA PlayerX
   SBC #$01
-  AND #$07
-  STA PlayerX
+  TAX
+  LDA PlayerY
+  ASL A
+  ASL A
+  ASL A
+  ADC PlayerX
+  TAY
+  DEY
+  LDA ActiveLevel,Y
+  CMP #$86
+  BEQ + ;Wall?
+  CMP #$85
+  BNE ++ ;Box?
+  ;The tile beyond must accept a box
+  LDA ActiveLevel-1,Y
+  CMP #$86
+  BEQ + ;Wall?
+  CMP #$85
+  BEQ + ;Box?
+  CMP #$84
+  BEQ +++ ;Goal?
+  ;'Tis a ground
+  LDA #$85
+  BMI ++++
++++
+  ;'Tis a goal
+  LDA #$86
+++++
+  STA ActiveLevel-1,Y
+  ;Remove the box from the target tile
+  LDA #$87
+  STA ActiveLevel,Y
+++
+  STX PlayerX
++
   RTS
 MovePlayerDown:
   LDA PlayerY
   SBC #$01
-  AND #$07
-  STA PlayerY
-  RTS
-
-CheckBox:
-  RTS
-
-MoveBox:
+  TAX
+  ASL A
+  ASL A
+  ASL A
+  ADC PlayerX
+  TAY
+  LDA ActiveLevel,Y
+  CMP #$86
+  BEQ + ;Wall?
+  CMP #$85
+  BNE ++ ;Box?
+  ;The tile beyond must accept a box
+  LDA ActiveLevel-8,Y
+  CMP #$86
+  BEQ + ;Wall?
+  CMP #$85
+  BEQ + ;Box?
+  CMP #$84
+  BEQ +++ ;Goal?
+  ;'Tis a ground
+  LDA #$85
+  BMI ++++
++++
+  ;'Tis a goal
+  LDA #$86
+++++
+  STA ActiveLevel-8,Y
+  ;Remove the box from the target tile
+  LDA #$87
+  STA ActiveLevel,Y
+++
+  STX PlayerY
++
   RTS
 
 CheckWin:
+;Look for unfilled goal spots
+  LDX #$3F
+  LDY #$00
+-
+  LDA ActiveLevel,X
+  CMP #$84
+  BNE +
+  INY
++
+  DEX
+  BPL -
+  TYA
   RTS
 
 .ENDS
