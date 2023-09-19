@@ -1,24 +1,242 @@
-
-
-.SECTION "Levels" FREE
+.SECTION "Leveldata" FREE
 LevelData:
-.db %11111111,%11111111
-.db %11111111,%11111111
-.db %11111100,%01101111
-.db %11111100,%01001111
-.db %11111101,%00101111
-.db %11111110,%00111111
-.db %11111111,%11111111
-.db %11111111,%11111111
-
-.db %11111111,%11111111
-.db %11111111,%11111111
-.db %11111010,%01001111
-.db %11110111,%01001111
-.db %11111000,%00001111
-.db %11111111,%11111111
-.db %11111111,%11111111
-.db %11111111,%11111111
-LevelPlayers:
-.db $33,$45
+.INCBIN levels/level0.ask SKIP 1
+.INCBIN levels/level100.ask SKIP 1
+.INCBIN levels/level101.ask SKIP 1
+.INCBIN levels/level102.ask SKIP 1
+.INCBIN levels/level103.ask SKIP 1
+.INCBIN levels/level104.ask SKIP 1
+.INCBIN levels/level105.ask SKIP 1
+.INCBIN levels/level106.ask SKIP 1
+.INCBIN levels/level107.ask SKIP 1
+.INCBIN levels/level108.ask SKIP 1
+.INCBIN levels/level109.ask SKIP 1
+.INCBIN levels/level10.ask SKIP 1
+.INCBIN levels/level110.ask SKIP 1
+.INCBIN levels/level111.ask SKIP 1
+.INCBIN levels/level112.ask SKIP 1
+.INCBIN levels/level113.ask SKIP 1
+.INCBIN levels/level114.ask SKIP 1
+.INCBIN levels/level115.ask SKIP 1
+.INCBIN levels/level116.ask SKIP 1
+.INCBIN levels/level117.ask SKIP 1
+.INCBIN levels/level118.ask SKIP 1
+.INCBIN levels/level120.ask SKIP 1
+.INCBIN levels/level121.ask SKIP 1
+.INCBIN levels/level122.ask SKIP 1
+.INCBIN levels/level123.ask SKIP 1
+.INCBIN levels/level124.ask SKIP 1
+.INCBIN levels/level127.ask SKIP 1
+.INCBIN levels/level128.ask SKIP 1
+.INCBIN levels/level129.ask SKIP 1
+.INCBIN levels/level12.ask SKIP 1
+.INCBIN levels/level130.ask SKIP 1
+.INCBIN levels/level131.ask SKIP 1
+.INCBIN levels/level132.ask SKIP 1
+.INCBIN levels/level134.ask SKIP 1
+.INCBIN levels/level136.ask SKIP 1
+.INCBIN levels/level137.ask SKIP 1
+.INCBIN levels/level13.ask SKIP 1
+.INCBIN levels/level15.ask SKIP 1
+.INCBIN levels/level17.ask SKIP 1
+.INCBIN levels/level18.ask SKIP 1
+.INCBIN levels/level19.ask SKIP 1
+.INCBIN levels/level1.ask SKIP 1
+.INCBIN levels/level20.ask SKIP 1
+.INCBIN levels/level21.ask SKIP 1
+.INCBIN levels/level22.ask SKIP 1
+.INCBIN levels/level23.ask SKIP 1
+.INCBIN levels/level24.ask SKIP 1
+.INCBIN levels/level25.ask SKIP 1
+.INCBIN levels/level26.ask SKIP 1
+.INCBIN levels/level28.ask SKIP 1
+.INCBIN levels/level29.ask SKIP 1
+.INCBIN levels/level2.ask SKIP 1
+.INCBIN levels/level30.ask SKIP 1
+.INCBIN levels/level31.ask SKIP 1
+.INCBIN levels/level32.ask SKIP 1
+.INCBIN levels/level33.ask SKIP 1
+.INCBIN levels/level34.ask SKIP 1
+.INCBIN levels/level35.ask SKIP 1
+.INCBIN levels/level36.ask SKIP 1
+.INCBIN levels/level37.ask SKIP 1
+.INCBIN levels/level38.ask SKIP 1
+.INCBIN levels/level39.ask SKIP 1
+.INCBIN levels/level3.ask SKIP 1
+.INCBIN levels/level41.ask SKIP 1
+.INCBIN levels/level42.ask SKIP 1
+.INCBIN levels/level43.ask SKIP 1
+.INCBIN levels/level44.ask SKIP 1
+.INCBIN levels/level46.ask SKIP 1
+.INCBIN levels/level47.ask SKIP 1
+.INCBIN levels/level49.ask SKIP 1
+.INCBIN levels/level4.ask SKIP 1
+.INCBIN levels/level50.ask SKIP 1
+.INCBIN levels/level52.ask SKIP 1
+.INCBIN levels/level53.ask SKIP 1
+.INCBIN levels/level54.ask SKIP 1
+.INCBIN levels/level55.ask SKIP 1
+.INCBIN levels/level56.ask SKIP 1
+.INCBIN levels/level57.ask SKIP 1
+.INCBIN levels/level5.ask SKIP 1
+.INCBIN levels/level60.ask SKIP 1
+.INCBIN levels/level61.ask SKIP 1
+.INCBIN levels/level62.ask SKIP 1
+.INCBIN levels/level63.ask SKIP 1
+.INCBIN levels/level64.ask SKIP 1
+.INCBIN levels/level65.ask SKIP 1
+.INCBIN levels/level66.ask SKIP 1
+.INCBIN levels/level67.ask SKIP 1
+.INCBIN levels/level68.ask SKIP 1
+.INCBIN levels/level69.ask SKIP 1
+.INCBIN levels/level6.ask SKIP 1
+.INCBIN levels/level70.ask SKIP 1
+.INCBIN levels/level71.ask SKIP 1
+.INCBIN levels/level72.ask SKIP 1
+.INCBIN levels/level73.ask SKIP 1
+.INCBIN levels/level75.ask SKIP 1
+.INCBIN levels/level78.ask SKIP 1
+.INCBIN levels/level79.ask SKIP 1
+.INCBIN levels/level7.ask SKIP 1
+.INCBIN levels/level80.ask SKIP 1
+.INCBIN levels/level81.ask SKIP 1
+.INCBIN levels/level84.ask SKIP 1
+.INCBIN levels/level85.ask SKIP 1
+.INCBIN levels/level86.ask SKIP 1
+.INCBIN levels/level87.ask SKIP 1
+.INCBIN levels/level88.ask SKIP 1
+.INCBIN levels/level89.ask SKIP 1
+.INCBIN levels/level8.ask SKIP 1
+.INCBIN levels/level90.ask SKIP 1
+.INCBIN levels/level91.ask SKIP 1
+.INCBIN levels/level92.ask SKIP 1
+.INCBIN levels/level93.ask SKIP 1
+.INCBIN levels/level94.ask SKIP 1
+.INCBIN levels/level95.ask SKIP 1
+.INCBIN levels/level96.ask SKIP 1
+.INCBIN levels/level97.ask SKIP 1
+.INCBIN levels/level98.ask SKIP 1
+.INCBIN levels/level99.ask SKIP 1
+.INCBIN levels/level9.ask SKIP 1
+.ENDS
+.SECTION "Levelplayer" FREE
+LevelPlayer:
+.INCBIN levels/level0.ask READ 1
+.INCBIN levels/level100.ask READ 1
+.INCBIN levels/level101.ask READ 1
+.INCBIN levels/level102.ask READ 1
+.INCBIN levels/level103.ask READ 1
+.INCBIN levels/level104.ask READ 1
+.INCBIN levels/level105.ask READ 1
+.INCBIN levels/level106.ask READ 1
+.INCBIN levels/level107.ask READ 1
+.INCBIN levels/level108.ask READ 1
+.INCBIN levels/level109.ask READ 1
+.INCBIN levels/level10.ask READ 1
+.INCBIN levels/level110.ask READ 1
+.INCBIN levels/level111.ask READ 1
+.INCBIN levels/level112.ask READ 1
+.INCBIN levels/level113.ask READ 1
+.INCBIN levels/level114.ask READ 1
+.INCBIN levels/level115.ask READ 1
+.INCBIN levels/level116.ask READ 1
+.INCBIN levels/level117.ask READ 1
+.INCBIN levels/level118.ask READ 1
+.INCBIN levels/level120.ask READ 1
+.INCBIN levels/level121.ask READ 1
+.INCBIN levels/level122.ask READ 1
+.INCBIN levels/level123.ask READ 1
+.INCBIN levels/level124.ask READ 1
+.INCBIN levels/level127.ask READ 1
+.INCBIN levels/level128.ask READ 1
+.INCBIN levels/level129.ask READ 1
+.INCBIN levels/level12.ask READ 1
+.INCBIN levels/level130.ask READ 1
+.INCBIN levels/level131.ask READ 1
+.INCBIN levels/level132.ask READ 1
+.INCBIN levels/level134.ask READ 1
+.INCBIN levels/level136.ask READ 1
+.INCBIN levels/level137.ask READ 1
+.INCBIN levels/level13.ask READ 1
+.INCBIN levels/level15.ask READ 1
+.INCBIN levels/level17.ask READ 1
+.INCBIN levels/level18.ask READ 1
+.INCBIN levels/level19.ask READ 1
+.INCBIN levels/level1.ask READ 1
+.INCBIN levels/level20.ask READ 1
+.INCBIN levels/level21.ask READ 1
+.INCBIN levels/level22.ask READ 1
+.INCBIN levels/level23.ask READ 1
+.INCBIN levels/level24.ask READ 1
+.INCBIN levels/level25.ask READ 1
+.INCBIN levels/level26.ask READ 1
+.INCBIN levels/level28.ask READ 1
+.INCBIN levels/level29.ask READ 1
+.INCBIN levels/level2.ask READ 1
+.INCBIN levels/level30.ask READ 1
+.INCBIN levels/level31.ask READ 1
+.INCBIN levels/level32.ask READ 1
+.INCBIN levels/level33.ask READ 1
+.INCBIN levels/level34.ask READ 1
+.INCBIN levels/level35.ask READ 1
+.INCBIN levels/level36.ask READ 1
+.INCBIN levels/level37.ask READ 1
+.INCBIN levels/level38.ask READ 1
+.INCBIN levels/level39.ask READ 1
+.INCBIN levels/level3.ask READ 1
+.INCBIN levels/level41.ask READ 1
+.INCBIN levels/level42.ask READ 1
+.INCBIN levels/level43.ask READ 1
+.INCBIN levels/level44.ask READ 1
+.INCBIN levels/level46.ask READ 1
+.INCBIN levels/level47.ask READ 1
+.INCBIN levels/level49.ask READ 1
+.INCBIN levels/level4.ask READ 1
+.INCBIN levels/level50.ask READ 1
+.INCBIN levels/level52.ask READ 1
+.INCBIN levels/level53.ask READ 1
+.INCBIN levels/level54.ask READ 1
+.INCBIN levels/level55.ask READ 1
+.INCBIN levels/level56.ask READ 1
+.INCBIN levels/level57.ask READ 1
+.INCBIN levels/level5.ask READ 1
+.INCBIN levels/level60.ask READ 1
+.INCBIN levels/level61.ask READ 1
+.INCBIN levels/level62.ask READ 1
+.INCBIN levels/level63.ask READ 1
+.INCBIN levels/level64.ask READ 1
+.INCBIN levels/level65.ask READ 1
+.INCBIN levels/level66.ask READ 1
+.INCBIN levels/level67.ask READ 1
+.INCBIN levels/level68.ask READ 1
+.INCBIN levels/level69.ask READ 1
+.INCBIN levels/level6.ask READ 1
+.INCBIN levels/level70.ask READ 1
+.INCBIN levels/level71.ask READ 1
+.INCBIN levels/level72.ask READ 1
+.INCBIN levels/level73.ask READ 1
+.INCBIN levels/level75.ask READ 1
+.INCBIN levels/level78.ask READ 1
+.INCBIN levels/level79.ask READ 1
+.INCBIN levels/level7.ask READ 1
+.INCBIN levels/level80.ask READ 1
+.INCBIN levels/level81.ask READ 1
+.INCBIN levels/level84.ask READ 1
+.INCBIN levels/level85.ask READ 1
+.INCBIN levels/level86.ask READ 1
+.INCBIN levels/level87.ask READ 1
+.INCBIN levels/level88.ask READ 1
+.INCBIN levels/level89.ask READ 1
+.INCBIN levels/level8.ask READ 1
+.INCBIN levels/level90.ask READ 1
+.INCBIN levels/level91.ask READ 1
+.INCBIN levels/level92.ask READ 1
+.INCBIN levels/level93.ask READ 1
+.INCBIN levels/level94.ask READ 1
+.INCBIN levels/level95.ask READ 1
+.INCBIN levels/level96.ask READ 1
+.INCBIN levels/level97.ask READ 1
+.INCBIN levels/level98.ask READ 1
+.INCBIN levels/level99.ask READ 1
+.INCBIN levels/level9.ask READ 1
 .ENDS

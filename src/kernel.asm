@@ -173,6 +173,18 @@ EndOfScreen:
   ;Count 1596-1672 cycles
   LDA #$0B
   STA TIM64T.w
+  ;If player 2 pressed up, skip this level
+  LDA ButtonsChange
+  AND #%00000001
+  BEQ +
+  INC LevelIndex
++
+  LDA SWCHB
+  ;If the player is holding reset, reload this level
+  AND #%00000001
+  BNE +
+  JSR LoadLevel
++
 -
   LDA INTIM.w
   BPL -

@@ -37,14 +37,15 @@ int main(int argc, char **argv)
                 fgetc(stdin);
                 for (int x = 0; x < width; x++) {
                         int inp = fgetc(stdin);
+                        logstate("Got a %c\n", inp);
                         if (x == 0 && inp == '\n') {
                                 height = y-1;
                                 y = 999;
                                 break;
                         }
-                        if (inp == '\n') break;
                         level[y*8+x] = inp;
                 }
+                fgetc(stdin);
                 fgetc(stdin);
         }
         //Width and height indicate the meaningful size of the level, but it's in the top-left corner

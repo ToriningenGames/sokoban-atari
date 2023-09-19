@@ -3,10 +3,10 @@ OBJSRC := init.asm kernel.asm
 LIBSRC := logic.asm graphics.asm levels.asm
 
 bin/sokoban.a26 : $(addprefix obj/,$(OBJSRC:.asm=.obj)) $(addprefix lib/,$(LIBSRC:.asm=.lib)) link.link | bin
-	wlalink -s -A -L lib link.link $@
+	wlalink -S -v -A -L lib link.link $@
 
 clean :
-	$(RM) -r dep obj lib bin link.link
+	$(RM) -r dep obj lib bin link.link levels/*.ask src/levels.asm
 
 link.link : $(addprefix src/,$(OBJSRC) $(LIBSRC))
 	{ \
@@ -20,15 +20,36 @@ link.link : $(addprefix src/,$(OBJSRC) $(LIBSRC))
 		done ;\
 	}
 
+levels/%.ask : levels/%.sok bin/pack bin/unpack
+	bin/pack < $< > $@
+
 obj/%.obj : src/%.asm dep/%.d | src dep obj
-	wla-6502 -M -I inc -I src -o $@ $< > $(word 2,$^)
+	wla-6502 -M -I inc -I src $< > $(word 2,$^)
+	wla-6502 -v -I inc -I src -o $@ $<
 lib/%.lib : src/%.asm dep/%.d | src dep lib
 	wla-6502 -M -I inc -I src -l $@ $< > $(word 2,$^)
+	wla-6502 -v -I inc -I src -l $@ $<
 
 bin/pack : src/converter/pack.c | bin
 	$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 bin/unpack : src/converter/unpack.c | bin
 	$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
+
+src/levels.asm : $(patsubst %.sok,%.ask,$(wildcard levels/*.sok))
+	{ \
+		echo .SECTION \"Leveldata\" FREE > $@ ;\
+		echo LevelData: >> $@ ;\
+		for f in $^ ; do \
+			echo .INCBIN "$$f" SKIP 1 >> $@ ;\
+		done ;\
+		echo .ENDS >> $@ ;\
+		echo .SECTION \"Levelplayer\" FREE >> $@ ;\
+		echo LevelPlayer: >> $@ ;\
+		for f in $^ ; do \
+			echo .INCBIN "$$f" READ 1 >> $@ ;\
+		done ;\
+		echo .ENDS >> $@ ;\
+	}
 
 dep obj lib bin:
 	mkdir -p $@

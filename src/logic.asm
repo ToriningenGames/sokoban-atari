@@ -5,10 +5,10 @@
 LoadLevel:
 ;Player pointer
   LDX LevelIndex
-  LDA LevelPlayers.w,X
+  LDA LevelPlayer.w,X
   AND #$0F
   STA PlayerX
-  LDA LevelPlayers.w,X
+  LDA LevelPlayer.w,X
   AND #$F0
   LSR A
   LSR A
