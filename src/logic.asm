@@ -19,13 +19,13 @@ LoadLevel:
   STX LevelPointer
   LDA #$00
   ASL LevelPointer
-  ASL A
+  ROL A
   ASL LevelPointer
-  ASL A
+  ROL A
   ASL LevelPointer
-  ASL A
+  ROL A
   ASL LevelPointer
-  ASL A
+  ROL A
   STA LevelPointer+1
   LDA #<LevelData
   ADC LevelPointer
