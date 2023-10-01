@@ -5,13 +5,14 @@
 .DEFINE LineCounter     ActiveLevel     +$40
 .DEFINE LevelIndex      LineCounter     +$01
 .DEFINE GraphPos        LevelIndex      +$01
-.DEFINE LevelPointer    GraphPos
-.DEFINE PlayerX         GraphPos        +$02
+.DEFINE LevelPointer    GraphPos        +$02
+.DEFINE PlayerX         LevelPointer    +$02
 .DEFINE PlayerY         PlayerX         +$01
 .DEFINE PlayerPosCode   PlayerY         +$01
 .DEFINE Buttons         PlayerPosCode   +$02
 .DEFINE ButtonsChange   Buttons         +$01
 .DEFINE LevelTimer      ButtonsChange   +$01
+.DEFINE Temp            LevelTimer      +$01
 
 .DEFINE DummyWrite      $2C
 

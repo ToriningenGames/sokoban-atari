@@ -101,71 +101,11 @@ MovePlayerRight:
   BEQ + ;Wall?
   CMP #$85
   BEQ + ;Box?
-  CMP #$84
-  BEQ +++ ;Goal?
-  ;'Tis a ground
+  ;'Tis a ground or goal beyond
   LDA #$85
-  BMI ++++
-+++
-  ;'Tis a goal
-  LDA #$86
-++++
   STA ActiveLevel+1,Y
-  ;Remove the box from the target tile
-  LDA #$87
-  STA ActiveLevel,Y
-++
+  JSR FinishMove
   STX PlayerX
-+
-  RTS
-MovePlayerUp:
-  LDA PlayerY
-  ADC #$00
-  TAX
-  ASL A
-  ASL A
-  ASL A
-  ADC PlayerX
-  TAY
-  LDA ActiveLevel,Y
-  CMP #$86
-  BEQ + ;Wall?
-  CMP #$85
-  BNE ++ ;Box?
-  ;The tile beyond must accept a box
-  LDA ActiveLevel+8,Y
-  CMP #$86
-  BEQ + ;Wall?
-  CMP #$85
-  BEQ + ;Box?
-  CMP #$84
-  BEQ +++ ;Goal?
-  ;'Tis a ground
-  LDA #$85
-  BMI ++++
-+++
-  ;'Tis a goal
-  LDA #$86
-++++
-  STA ActiveLevel+8,Y
-  ;Remove the box from the target tile
-  LDA #$87
-  STA ActiveLevel,Y
-++
-  STX PlayerY
-+
-  RTS
-MovePlayer:
-  LDA ButtonsChange
-  ROL
-  BCS MovePlayerRight
-  ROL
-  BCS MovePlayerLeft
-  ROL
-  BCS MovePlayerDown
-  ROL
-  BCS MovePlayerUp
-;Player did not move
   RTS
 MovePlayerLeft:
   LDA PlayerX
@@ -189,22 +129,58 @@ MovePlayerLeft:
   BEQ + ;Wall?
   CMP #$85
   BEQ + ;Box?
-  CMP #$84
-  BEQ +++ ;Goal?
-  ;'Tis a ground
+  ;'Tis a ground or goal beyond
   LDA #$85
-  BMI ++++
-+++
-  ;'Tis a goal
-  LDA #$86
-++++
   STA ActiveLevel-1,Y
-  ;Remove the box from the target tile
-  LDA #$87
-  STA ActiveLevel,Y
+  JSR FinishMove
 ++
   STX PlayerX
 +
+  RTS
+MovePlayer:
+  LDA ButtonsChange
+  ROL
+  BCS MovePlayerRight
+  ROL
+  BCS MovePlayerLeft
+  ROL
+  BCS MovePlayerDown
+  ROL
+  BCS MovePlayerUp
+;Player did not move
+  RTS
+FinishMove:
+  ;Remove the box from the target tile
+  ;Was it on a goal?
+  TYA
+  PHA
+    LSR A
+    LSR A
+    TAY
+    LDA (LevelPointer),Y
+    STA Temp
+  PLA
+  TAY
+  AND #$03
+  BEQ +++
+-
+  ASL Temp
+  ASL Temp
+  SEC
+  SBC #$01
+  BNE -
++++
+  LDA Temp
+  AND #$C0
+  EOR #$80      ;Place whatever was there back
+  BEQ +++
+;Background
+  LDA #$03
++++
+;Goal
+  CLC
+  ADC #$84
+  STA ActiveLevel,Y
   RTS
 MovePlayerDown:
   LDA PlayerY
@@ -226,19 +202,38 @@ MovePlayerDown:
   BEQ + ;Wall?
   CMP #$85
   BEQ + ;Box?
-  CMP #$84
-  BEQ +++ ;Goal?
-  ;'Tis a ground
+  ;'Tis a ground or goal beyond
   LDA #$85
-  BMI ++++
-+++
-  ;'Tis a goal
-  LDA #$86
-++++
   STA ActiveLevel-8,Y
   ;Remove the box from the target tile
-  LDA #$87
-  STA ActiveLevel,Y
+  JSR FinishMove
+  STX PlayerY
+  RTS
+MovePlayerUp:
+  LDA PlayerY
+  ADC #$00
+  TAX
+  ASL A
+  ASL A
+  ASL A
+  ADC PlayerX
+  TAY
+  LDA ActiveLevel,Y
+  CMP #$86
+  BEQ + ;Wall?
+  CMP #$85
+  BNE ++ ;Box?
+  ;The tile beyond must accept a box
+  LDA ActiveLevel+8,Y
+  CMP #$86
+  BEQ + ;Wall?
+  CMP #$85
+  BEQ + ;Box?
+  ;'Tis a ground or goal beyond
+  LDA #$85
+  STA ActiveLevel+8,Y
+  ;Remove the box from the target tile
+  JSR FinishMove
 ++
   STX PlayerY
 +
